@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Population Congestion Information</title>
+    <link rel="stylesheet" href="/css/style.css">
+</head>
+<body>
+
+<div class="container">
+    <h1>Population Congestion Information Lookup</h1>
+    <!-- Input form -->
+    <form method="POST" action="/congestion">
+        <label for="location">Location:</label>
+        <input type="text" id="location" name="location" required th:value="${location}">
+        <button type="submit">Look up</button>
+    </form>
+
+    <!-- Error message -->
+    <div th:if="${error}" class="error-msg">
+        <p th:text="${error}"></p>
+    </div>
+
+    <!-- Result display -->
+    <div th:if="${location}">
+        <h2>Result:</h2>
+        <table>
+            <tr>
+                <th>Area Name</th>
+                <td th:text="${areaName}"></td>
+            </tr>
+            <tr>
+                <th>Area Code</th>
+                <td th:text="${areaCode}"></td>
+            </tr>
+            <tr>
+                <th>Congestion Level</th>
+                <td th:text="${areaCongestLevel}"></td>
+            </tr>
+            <tr>
+                <th>Congestion Message</th>
+                <td th:text="${areaCongestMsg}"></td>
+            </tr>
+            <tr>
+                <th>Male Population Ratio</th>
+                <td th:text="${malePopulationRate}"></td>
+            </tr>
+            <tr>
+                <th>Female Population Ratio</th>
+                <td th:text="${femalePopulationRate}"></td>
+            </tr>
+        </table>
+    </div>
+</div>
+
+</body>
+</html>
