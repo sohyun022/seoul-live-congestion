@@ -18,7 +18,7 @@
 
         <!-- Open Excel button -->
         <div>
-            <a href="/open/excel" class="btn"> Show Area List </a>
+            <a href="/open/excel" class="btn">Show Area List</a>
         </div>
     </form>
 
@@ -59,13 +59,17 @@
                 <th>Female Population Ratio</th>
                 <td th:text="${femalePopulationRate}"></td>
             </tr>
+        </table>
+
+        <h3>Forecast Data</h3>
+        <table>
             <tr>
                 <th>Forecast Time</th>
-                <td th:text="${forecastTime}"></td>
-            </tr>
-            <tr>
                 <th>Forecast Congestion</th>
-                <td th:text="${forecastCongestion}"></td>
+            </tr>
+            <tr th:each="time, iterStat : ${forecastTimes}">
+                <td th:text="${time}"></td>
+                <td th:text="${forecastCongestions[iterStat.index]}"></td>
             </tr>
         </table>
     </div>

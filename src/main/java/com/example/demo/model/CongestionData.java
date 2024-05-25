@@ -1,30 +1,29 @@
 package com.example.demo.model;
 
+import java.util.List;
+
 public class CongestionData {
-    // 지역 이름
-    private String areaName;
-    // 지역 코드
-    private String areaCode;
-    // 실시간 인구 상태
-    private String livePopulationStatus;
-    // 지역 혼잡 수준
-    private String areaCongestLevel;
-    // 지역 혼잡 메시지
-    private String areaCongestMsg;
-    // 남성 인구 비율
-    private String malePopulationRate;
-    // 여성 인구 비율
-    private String femalePopulationRate;
-
     private String populationTime;
+    private String areaName;
+    private String areaCode;
+    private String livePopulationStatus;
+    private String areaCongestLevel;
+    private String areaCongestMsg;
+    private String malePopulationRate;
+    private String femalePopulationRate;
+    private List<String> forecastTimes;
+    private List<String> forecastCongestions;
 
-    private String forecastTime;
+    // getters and setters for all fields
 
-    private String forecastCongestion;
+    public String getPopulationTime() {
+        return populationTime;
+    }
 
+    public void setPopulationTime(String populationTime) {
+        this.populationTime = populationTime;
+    }
 
-
-    // Getter 및 Setter
     public String getAreaName() {
         return areaName;
     }
@@ -81,27 +80,19 @@ public class CongestionData {
         this.femalePopulationRate = femalePopulationRate;
     }
 
-    public String getForecastTime() {
-        return forecastTime;
+    public List<String> getForecastTimes() {
+        return forecastTimes;
     }
 
-    public void setForecastTime(String forecastTime) {
-        this.forecastTime = forecastTime;
+    public void setForecastTimes(List<String> forecastTimes) {
+        this.forecastTimes = forecastTimes;
     }
 
-    public String getPopulationTime() {
-        return populationTime;
+    public List<String> getForecastCongestions() {
+        return forecastCongestions;
     }
 
-    public void setPopulationTime(String populationTime) {
-        this.populationTime = populationTime;
-    }
-
-    public String getForecastCongestion() {
-        return forecastCongestion;
-    }
-
-    public void setForecastCongestion(String forecastCongestion) {
-        this.forecastCongestion = forecastCongestion;
+    public void setForecastCongestions(List<String> forecastCongestions) {
+        this.forecastCongestions = forecastCongestions;
     }
 }

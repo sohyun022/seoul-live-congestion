@@ -13,6 +13,8 @@ import org.xml.sax.InputSource;
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
 import java.io.StringReader;
+import java.util.ArrayList;
+import java.util.List;
 
 @Service
 public class SeoulApiService {
@@ -50,9 +52,8 @@ public class SeoulApiService {
             System.out.println("지역 혼잡 메시지: " + parsedData.getAreaCongestMsg());
             System.out.println("남성 인구 비율: " + parsedData.getMalePopulationRate());
             System.out.println("여성 인구 비율: " + parsedData.getFemalePopulationRate());
-            System.out.println("예측 시점: " + parsedData.getForecastTime());
-        } else {
-            System.out.println("주어진 지역명에 대한 데이터를 찾을 수 없습니다.");
+            System.out.println("예상 시간: " + parsedData.getForecastTimes());
+            System.out.println("예상 혼잡도: " + parsedData.getForecastCongestions());
         }
 
         return parsedData;
@@ -60,14 +61,18 @@ public class SeoulApiService {
 
     private CongestionData parseXmlData(String xmlData, String areaName) {
         try {
-            DocumentBuilderFactory dbFactory = DocumentBuilderFactory.newInstance();
-            DocumentBuilder dBuilder = dbFactory.newDocumentBuilder();
-            Document doc = dBuilder.parse(new InputSource(new StringReader(xmlData)));
+            DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
+            DocumentBuilder builder = factory.newDocumentBuilder();
+            Document document = builder.parse(new InputSource(new StringReader(xmlData)));
 
-            NodeList nList = doc.getElementsByTagName("SeoulRtd.citydata_ppltn");
+            NodeList nList = document.getElementsByTagName("SeoulRtd.citydata_ppltn");
+
+            CongestionData populationInfo = null;
+            List<String> forecastTimes = new ArrayList<>();
+            List<String> forecastCongestions = new ArrayList<>();
+
             for (int temp = 0; temp < nList.getLength(); temp++) {
                 Node nNode = nList.item(temp);
-
                 if (nNode.getNodeType() == Node.ELEMENT_NODE) {
                     Element element = (Element) nNode;
 
@@ -75,23 +80,37 @@ public class SeoulApiService {
                     String areaNm = getTagValue("AREA_NM", element);
                     System.out.println("파싱된 지역 명: " + areaNm); // 디버깅용
                     if (areaNm != null && areaNm.equalsIgnoreCase(areaName)) {
-                        CongestionData populationInfo = new CongestionData();
-                        populationInfo.setPopulationTime(getTagValue("PPLTN_TIME",element));
-                        populationInfo.setAreaName(areaNm);
-                        populationInfo.setAreaCode(getTagValue("AREA_CD", element));
-                        populationInfo.setLivePopulationStatus(getTagValue("LIVE_PPLTN_STTS", element));
-                        populationInfo.setAreaCongestLevel(getTagValue("AREA_CONGEST_LVL", element));
-                        populationInfo.setAreaCongestMsg(getTagValue("AREA_CONGEST_MSG", element));
-                        populationInfo.setMalePopulationRate(getTagValue("MALE_PPLTN_RATE", element));
-                        populationInfo.setFemalePopulationRate(getTagValue("FEMALE_PPLTN_RATE", element));
-                        populationInfo.setForecastTime(getTagValue("FCST_TIME", element));
-                        populationInfo.setForecastCongestion(getTagValue("FCST_CONGEST_LVL",element));
+                        if (populationInfo == null) {
+                            populationInfo = new CongestionData();
+                            populationInfo.setPopulationTime(getTagValue("PPLTN_TIME", element));
+                            populationInfo.setAreaName(areaNm);
+                            populationInfo.setAreaCode(getTagValue("AREA_CD", element));
+                            populationInfo.setLivePopulationStatus(getTagValue("LIVE_PPLTN_STTS", element));
+                            populationInfo.setAreaCongestLevel(getTagValue("AREA_CONGEST_LVL", element));
+                            populationInfo.setAreaCongestMsg(getTagValue("AREA_CONGEST_MSG", element));
+                            populationInfo.setMalePopulationRate(getTagValue("MALE_PPLTN_RATE", element));
+                            populationInfo.setFemalePopulationRate(getTagValue("FEMALE_PPLTN_RATE", element));
+                        }
 
-
-                        return populationInfo;
+                        NodeList forecastNodeList = element.getElementsByTagName("FCST_PPLTN");
+                        for (int j = 1; j < forecastNodeList.getLength(); j++) {
+                            Node forecastNode = forecastNodeList.item(j);
+                            if (forecastNode.getNodeType() == Node.ELEMENT_NODE) {
+                                Element forecastElement = (Element) forecastNode;
+                                forecastTimes.add(getTagValue("FCST_TIME", forecastElement));
+                                forecastCongestions.add(getTagValue("FCST_CONGEST_LVL", forecastElement));
+                            }
+                        }
                     }
                 }
             }
+
+            if (populationInfo != null) {
+                populationInfo.setForecastTimes(forecastTimes);
+                populationInfo.setForecastCongestions(forecastCongestions);
+            }
+
+            return populationInfo;
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -100,9 +119,9 @@ public class SeoulApiService {
 
     private String getTagValue(String tag, Element element) {
         NodeList nodeList = element.getElementsByTagName(tag);
-        if (nodeList.getLength() > 0 ) {
+        if (nodeList.getLength() > 0) {
             NodeList childNodes = nodeList.item(0).getChildNodes();
-            if (childNodes.getLength() > 0 ) {
+            if (childNodes.getLength() > 0) {
                 Node value = childNodes.item(0);
                 return value.getNodeValue();
             }
