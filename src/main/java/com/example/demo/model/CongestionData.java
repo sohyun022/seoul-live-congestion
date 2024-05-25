@@ -16,6 +16,14 @@ public class CongestionData {
     // 여성 인구 비율
     private String femalePopulationRate;
 
+    private String populationTime;
+
+    private String forecastTime;
+
+    private String forecastCongestion;
+
+
+
     // Getter 및 Setter
     public String getAreaName() {
         return areaName;
@@ -71,5 +79,29 @@ public class CongestionData {
 
     public void setFemalePopulationRate(String femalePopulationRate) {
         this.femalePopulationRate = femalePopulationRate;
+    }
+
+    public String getForecastTime() {
+        return forecastTime;
+    }
+
+    public void setForecastTime(String forecastTime) {
+        this.forecastTime = forecastTime;
+    }
+
+    public String getPopulationTime() {
+        return populationTime;
+    }
+
+    public void setPopulationTime(String populationTime) {
+        this.populationTime = populationTime;
+    }
+
+    public String getForecastCongestion() {
+        return forecastCongestion;
+    }
+
+    public void setForecastCongestion(String forecastCongestion) {
+        this.forecastCongestion = forecastCongestion;
     }
 }

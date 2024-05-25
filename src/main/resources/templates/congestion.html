@@ -2,18 +2,24 @@
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
-    <title>Population Congestion Information</title>
-    <link rel="stylesheet" href="/css/style.css">
+    <title>Seoul Population Congestion Information</title>
+    <link rel="stylesheet" href="style.css">
 </head>
 <body>
 
 <div class="container">
-    <h1>Population Congestion Information Lookup</h1>
+    <h1>Seoul Population Congestion Information</h1>
+
     <!-- Input form -->
-    <form method="POST" action="/congestion">
-        <label for="location">Location:</label>
-        <input type="text" id="location" name="location" required th:value="${location}">
-        <button type="submit">Look up</button>
+    <form method="POST" action="/Congestion">
+        <label for="location"></label>
+        <input type="text" id="location" name="location" required th:value="${location}" placeholder="Enter The Area Name">
+        <button type="submit">Search</button>
+
+        <!-- Open Excel button -->
+        <div>
+            <a href="/open/excel" class="btn"> Show Area List </a>
+        </div>
     </form>
 
     <!-- Error message -->
@@ -25,6 +31,10 @@
     <div th:if="${location}">
         <h2>Result:</h2>
         <table>
+            <tr>
+                <th>Last Measurement Time</th>
+                <td th:text="${populationTime}"></td>
+            </tr>
             <tr>
                 <th>Area Name</th>
                 <td th:text="${areaName}"></td>
@@ -48,6 +58,14 @@
             <tr>
                 <th>Female Population Ratio</th>
                 <td th:text="${femalePopulationRate}"></td>
+            </tr>
+            <tr>
+                <th>Forecast Time</th>
+                <td th:text="${forecastTime}"></td>
+            </tr>
+            <tr>
+                <th>Forecast Congestion</th>
+                <td th:text="${forecastCongestion}"></td>
             </tr>
         </table>
     </div>
