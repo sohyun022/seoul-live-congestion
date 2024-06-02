@@ -12,7 +12,15 @@ import org.xml.sax.InputSource;
 
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
+import javax.xml.transform.OutputKeys;
+import javax.xml.transform.Transformer;
+import javax.xml.transform.TransformerFactory;
+import javax.xml.transform.dom.DOMSource;
+import javax.xml.transform.stream.StreamResult;
 import java.io.StringReader;
+import java.io.StringWriter;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -97,10 +105,13 @@ public class SeoulApiService {
                             Node forecastNode = forecastNodeList.item(j);
                             if (forecastNode.getNodeType() == Node.ELEMENT_NODE) {
                                 Element forecastElement = (Element) forecastNode;
-                                forecastTimes.add(getTagValue("FCST_TIME", forecastElement));
+                                String fcstTimeStr = getTagValue("FCST_TIME", forecastElement);
+                                LocalDateTime fcstTime = LocalDateTime.parse(fcstTimeStr, DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm"));
+                                forecastTimes.add(fcstTime.toLocalTime().toString());
                                 forecastCongestions.add(getTagValue("FCST_CONGEST_LVL", forecastElement));
                             }
                         }
+
                     }
                 }
             }
@@ -127,5 +138,24 @@ public class SeoulApiService {
             }
         }
         return null;
+    }
+
+    public static String elementToString(Element element) throws Exception {
+        // Transformer 객체 생성
+        TransformerFactory tf = TransformerFactory.newInstance();
+        Transformer transformer = tf.newTransformer();
+        transformer.setOutputProperty(OutputKeys.OMIT_XML_DECLARATION, "yes");
+        transformer.setOutputProperty(OutputKeys.INDENT, "yes");
+
+        // Element를 DOMSource로 변환
+        DOMSource domSource = new DOMSource(element);
+        StringWriter writer = new StringWriter();
+        StreamResult result = new StreamResult(writer);
+
+        // 변환 실행
+        transformer.transform(domSource, result);
+
+        // 문자열 반환
+        return writer.toString();
     }
 }

@@ -1,14 +1,6 @@
-<!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org">
-<head>
-    <meta charset="UTF-8">
-    <title>Seoul Population Congestion Information</title>
-    <link rel="stylesheet" href="style.css">
-</head>
-<body>
+<!DOCTYPE html> <html xmlns:th="http://www.thymeleaf.org"> <head> <meta charset="UTF-8"> <title>Seoul Population Congestion Information</title> <link rel="stylesheet" href="style.css"> <script src="https://cdn.jsdelivr.net/npm/chart.js"></script> </head> <body> <div class="container"> <h1>Seoul Population Congestion Information</h1>
 
-<div class="container">
-    <h1>Seoul Population Congestion Information</h1>
+
 
     <!-- Input form -->
     <form method="POST" action="/Congestion">
@@ -17,8 +9,475 @@
         <button type="submit">Search</button>
 
         <!-- Open Excel button -->
-        <div>
-            <a href="/open/excel" class="btn">Show Area List</a>
+        <div> <a href="#" id="showAreaList" class="btn">Show Area List</a> <div id="areaListContainer" style="display: none;">
+            <table>
+                <thead>
+                    <tr>
+                        <th>AREA_NM</th>
+                        <th>ENG_NM</th>
+                    </tr>
+                    <tr>
+                        <td>강남 MICE 관광특구</td>
+                        <td>Gangnam MICE Special Tourist Zone</td>
+                    </tr>
+                    <tr>
+                        <td>동대문 관광특구</td>
+                        <td>Dongdaemun Fashion Town Special Tourist Zone</td>
+                    </tr>
+                    <tr>
+                        <td>명동 관광특구</td>
+                        <td>Myeong-dong Namdaemun Bukchang-dong Da-dong Mugyo-dong Special Tourist Zone</td>
+                    </tr>
+                    <tr>
+                        <td>이태원 관광특구</td>
+                        <td>Itaewon Special Tourist Zone</td>
+                    </tr>
+                    <tr>
+                        <td>잠실 관광특구</td>
+                        <td>Jamsil Special Tourist Zone</td>
+                    </tr>
+                    <tr>
+                        <td>종로·청계 관광특구</td>
+                        <td>Jongno Cheonggye Special Toruist Zone</td>
+                    </tr>
+                    <tr>
+                        <td>홍대 관광특구</td>
+                        <td>HongDae Culture & Arts Special Tourist Zone</td>
+                    </tr>
+                    <tr>
+                        <td>경복궁</td>
+                        <td>Gyeongbokgung Palace</td>
+                    </tr>
+                    <tr>
+                        <td>광화문·덕수궁</td>
+                        <td>Gwanghwamun & Deoksugung Palace</td>
+                    </tr>
+                    <tr>
+                        <td>보신각</td>
+                        <td>Bosingak</td>
+                    </tr>
+                    <tr>
+                        <td>서울 암사동 유적</td>
+                        <td>Amsa Prehistoric Settlement Site</td>
+                    </tr>
+                    <tr>
+                        <td>창덕궁·종묘</td>
+                        <td>Changdeokgung Palace & Jongmyo Shrine</td>
+                    </tr>
+                    <tr>
+                        <td>가산디지털단지역</td>
+                        <td>Gasan Digital Complex station</td>
+                    </tr>
+                    <tr>
+                        <td>강남역</td>
+                        <td>Gangnam station</td>
+                    </tr>
+                    <tr>
+                        <td>건대입구역</td>
+                        <td>Konkuk University station</td>
+                    </tr>
+                    <tr>
+                        <td>고덕역</td>
+                        <td>Godeok station</td>
+                    </tr>
+                    <tr>
+                        <td>고속터미널역</td>
+                        <td>Express Bus Terminal station</td>
+                    </tr>
+                    <tr>
+                        <td>교대역</td>
+                        <td>Seoul National University of Education station</td>
+                    </tr>
+                    <tr>
+                        <td>구로디지털단지역</td>
+                        <td>Guro Digital Complex station</td>
+                    </tr>
+                    <tr>
+                        <td>구로역</td>
+                        <td>Guro station</td>
+                    </tr>
+                    <tr>
+                        <td>군자역</td>
+                        <td>Gunja station</td>
+                    </tr>
+                    <tr>
+                        <td>남구로역</td>
+                        <td>Namguro station</td>
+                    </tr>
+                    <tr>
+                        <td>대림역</td>
+                        <td>Daerim station</td>
+                    </tr>
+                    <tr>
+                        <td>동대문역</td>
+                        <td>Dongdaemun station</td>
+                    </tr>
+                    <tr>
+                        <td>뚝섬역</td>
+                        <td>Ttukseom station</td>
+                    </tr>
+                    <tr>
+                        <td>미아사거리역</td>
+                        <td>Miasageori station</td>
+                    </tr>
+                    <tr>
+                        <td>발산역</td>
+                        <td>Balsan station</td>
+                    </tr>
+                    <tr>
+                        <td>북한산우이역</td>
+                        <td>Bukhansan Ui station</td>
+                    </tr>
+                    <tr>
+                        <td>사당역</td>
+                        <td>Sadang station</td>
+                    </tr>
+                    <tr>
+                        <td>삼각지역</td>
+                        <td>Samgakji station</td>
+                    </tr>
+                    <tr>
+                        <td>서울대입구역</td>
+                        <td>Seoul National University station</td>
+                    </tr>
+                    <tr>
+                        <td>서울식물원·마곡나루역</td>
+                        <td>Seoul Botanic Park·Magongnaru station</td>
+                    </tr>
+                    <tr>
+                        <td>서울역</td>
+                        <td>Seoul station</td>
+                    </tr>
+                    <tr>
+                        <td>선릉역</td>
+                        <td>Seolleung station</td>
+                    </tr>
+                    <tr>
+                        <td>성신여대입구역</td>
+                        <td>Sungshin Women's University station</td>
+                    </tr>
+                    <tr>
+                        <td>수유역</td>
+                        <td>Suyu station</td>
+                    </tr>
+                    <tr>
+                        <td>신논현역·논현역</td>
+                        <td>Sinnonhyeon·Nonhyeon station</td>
+                    </tr>
+                    <tr>
+                        <td>신도림역</td>
+                        <td>Sindorim station</td>
+                    </tr>
+                    <tr>
+                        <td>신림역</td>
+                        <td>Sillim station</td>
+                    </tr>
+                    <tr>
+                        <td>신촌·이대역</td>
+                        <td>Sinchon·Ewha Womans University station</td>
+                    </tr>
+                    <tr>
+                        <td>양재역</td>
+                        <td>Yangjae station</td>
+                    </tr>
+                    <tr>
+                        <td>역삼역</td>
+                        <td>Yeoksam station</td>
+                    </tr>
+                    <tr>
+                        <td>연신내역</td>
+                        <td>Yeonsinnae station</td>
+                    </tr>
+                    <tr>
+                        <td>오목교역·목동운동장</td>
+                        <td>Omokgyo·Mok-dong Stadium station</td>
+                    </tr>
+                    <tr>
+                        <td>왕십리역</td>
+                        <td>Wangsimni station</td>
+                    </tr>
+                    <tr>
+                        <td>용산역</td>
+                        <td>Yongsan station</td>
+                    </tr>
+                    <tr>
+                        <td>이태원역</td>
+                        <td>Itaewon station</td>
+                    </tr>
+                    <tr>
+                        <td>장지역</td>
+                        <td>Jangji station</td>
+                    </tr>
+                    <tr>
+                        <td>장한평역</td>
+                        <td>Janghanpyeong station</td>
+                    </tr>
+                    <tr>
+                        <td>천호역</td>
+                        <td>Cheonho station</td>
+                    </tr>
+                    <tr>
+                        <td>총신대입구(이수)역</td>
+                        <td>Chongshin University(Isu) station</td>
+                    </tr>
+                    <tr>
+                        <td>충정로역</td>
+                        <td>Chungjeongno station</td>
+                    </tr>
+                    <tr>
+                        <td>합정역</td>
+                        <td>Hapjeong station</td>
+                    </tr>
+                    <tr>
+                        <td>혜화역</td>
+                        <td>Hyehwa station</td>
+                    </tr>
+                    <tr>
+                        <td>홍대입구역(2호선)</td>
+                        <td>Hongik University station(Line 2)</td>
+                    </tr>
+                    <tr>
+                        <td>회기역</td>
+                        <td>Hoegi station</td>
+                    </tr>
+                    <tr>
+                        <td>4·19 카페거리</td>
+                        <td>4·19 Cafe street</td>
+                    </tr>
+                    <tr>
+                        <td>가락시장</td>
+                        <td>Garak Market</td>
+                    </tr>
+                    <tr>
+                        <td>가로수길</td>
+                        <td>Garosu-gil</td>
+                    </tr>
+                    <tr>
+                        <td>광장(전통)시장</td>
+                        <td>Gwangjang(Traditional) Market</td>
+                    </tr>
+                    <tr>
+                        <td>김포공항</td>
+                        <td>Gimpo Airport</td>
+                    </tr>
+                    <tr>
+                        <td>낙산공원·이화마을</td>
+                        <td>Naksan Park·Ihwa Village</td>
+                    </tr>
+                    <tr>
+                        <td>노량진</td>
+                        <td>Noryangjin</td>
+                    </tr>
+                    <tr>
+                        <td>덕수궁길·정동길</td>
+                        <td>Deoksugung-gil·Jeongdong-gil</td>
+                    </tr>
+                    <tr>
+                        <td>방배역 먹자골목</td>
+                        <td>Bangbae food alley</td>
+                    </tr>
+                    <tr>
+                        <td>북촌한옥마을</td>
+                        <td>Bukchon Hanok Village</td>
+                    </tr>
+                    <tr>
+                        <td>서촌</td>
+                        <td>Seochon</td>
+                    </tr>
+                    <tr>
+                        <td>성수카페거리</td>
+                        <td>Seongsu Cafe Street</td>
+                    </tr>
+                    <tr>
+                        <td>수유리 먹자골목</td>
+                        <td>Suyuri food alley</td>
+                    </tr>
+                    <tr>
+                        <td>쌍문동 맛집거리</td>
+                        <td>Ssangmun-dong restaurant street</td>
+                    </tr>
+                    <tr>
+                        <td>압구정로데오거리</td>
+                        <td>Apgujeong Rodeo Street</td>
+                    </tr>
+                    <tr>
+                        <td>여의도</td>
+                        <td>Yeouido</td>
+                    </tr>
+                    <tr>
+                        <td>연남동</td>
+                        <td>Yeonnam-dong</td>
+                    </tr>
+                    <tr>
+                        <td>영등포 타임스퀘어</td>
+                        <td>Yeongdeungpo Time square</td>
+                    </tr>
+                    <tr>
+                        <td>외대앞</td>
+                        <td>Hankuk University of Foreign Studies</td>
+                    </tr>
+                    <tr>
+                        <td>용리단길</td>
+                        <td>Yongnidan-gil</td>
+                    </tr>
+                    <tr>
+                        <td>이태원 앤틱가구거리</td>
+                        <td>Itaewon Antiques street</td>
+                    </tr>
+                    <tr>
+                        <td>인사동·익선동</td>
+                        <td>Insa-dong·Ikseon-dong</td>
+                    </tr>
+                    <tr>
+                        <td>창동 신경제 중심지</td>
+                        <td>Changdong New Economic Center</td>
+                    </tr>
+                    <tr>
+                        <td>청담동 명품거리</td>
+                        <td>Cheongdam-dong Luxury Fashion street</td>
+                    </tr>
+                    <tr>
+                        <td>청량리 제기동 일대 전통시장</td>
+                        <td>Traditional market in Cheongnyangni Jegi-dong</td>
+                    </tr>
+                    <tr>
+                        <td>해방촌·경리단길</td>
+                        <td>Haebangchon·Gyeongnidan-gil</td>
+                    </tr>
+                    <tr>
+                        <td>DDP(동대문디자인플라자)</td>
+                        <td>DDP(Dongdaemun Design Plaza)</td>
+                    </tr>
+                    <tr>
+                        <td>DMC(디지털미디어시티)</td>
+                        <td>DMC(Digital Media City)</td>
+                    </tr>
+                    <tr>
+                        <td>강서한강공원</td>
+                        <td>Gangseo Hangang Park</td>
+                    </tr>
+                    <tr>
+                        <td>고척돔</td>
+                        <td>Gocheok Dome</td>
+                    </tr>
+                    <tr>
+                        <td>광나루한강공원</td>
+                        <td>Gwangnaru Hangang Park</td>
+                    </tr>
+                    <tr>
+                        <td>광화문광장</td>
+                        <td>Gwanghwamun Square</td>
+                    </tr>
+                    <tr>
+                        <td>국립중앙박물관·용산가족공원</td>
+                        <td>The National Museum of Korea·Yongsan Family Park</td>
+                    </tr>
+                    <tr>
+                        <td>난지한강공원</td>
+                        <td>Nanji Hangang Park</td>
+                    </tr>
+                    <tr>
+                        <td>남산공원</td>
+                        <td>Namsan Park</td>
+                    </tr>
+                    <tr>
+                        <td>노들섬</td>
+                        <td>Nodeul island</td>
+                    </tr>
+                    <tr>
+                        <td>뚝섬한강공원</td>
+                        <td>Ttukseom Hangang Park</td>
+                    </tr>
+                    <tr>
+                        <td>망원한강공원</td>
+                        <td>Mangwon Hangang Park</td>
+                    </tr>
+                    <tr>
+                        <td>반포한강공원</td>
+                        <td>Banpo Hangang Park</td>
+                    </tr>
+                    <tr>
+                        <td>북서울꿈의숲</td>
+                        <td>Dream Forest</td>
+                    </tr>
+                    <tr>
+                        <td>불광천</td>
+                        <td>Bulgwangcheon River</td>
+                    </tr>
+                    <tr>
+                        <td>서리풀공원·몽마르뜨공원</td>
+                        <td>Seoripul Park·Montmartre Park</td>
+                    </tr>
+                    <tr>
+                        <td>서울광장</td>
+                        <td>Seoul Plaza</td>
+                    </tr>
+                    <tr>
+                        <td>서울대공원</td>
+                        <td>Seoul Grand Park</td>
+                    </tr>
+                    <tr>
+                        <td>서울숲공원</td>
+                        <td>Seoul Forest</td>
+                    </tr>
+                    <tr>
+                        <td>아차산</td>
+                        <td>Achasan</td>
+                    </tr>
+                    <tr>
+                        <td>양화한강공원</td>
+                        <td>Yanghwa Hangang Park</td>
+                    </tr>
+                    <tr>
+                        <td>어린이대공원</td>
+                        <td>Children's Grand Park</td>
+                    </tr>
+                    <tr>
+                        <td>여의도한강공원</td>
+                        <td>Yeouido Hangang Park</td>
+                    </tr>
+                    <tr>
+                        <td>월드컵공원</td>
+                        <td>World Cup Park</td>
+                    </tr>
+                    <tr>
+                        <td>응봉산</td>
+                        <td>Eungbongsan</td>
+                    </tr>
+                    <tr>
+                        <td>이촌한강공원</td>
+                        <td>Ichon Hangang Park</td>
+                    </tr>
+                    <tr>
+                        <td>잠실종합운동장</td>
+                        <td>Jamsil (Seoul) Sports Complex</td>
+                    </tr>
+                    <tr>
+                        <td>잠실한강공원</td>
+                        <td>Jamsil Hangang Park</td>
+                    </tr>
+                    <tr>
+                        <td>잠원한강공원</td>
+                        <td>Jamwon Hangang Park</td>
+                    </tr>
+                    <tr>
+                        <td>청계산</td>
+                        <td>Cheonggyesan</td>
+                    </tr>
+                    <tr>
+                        <td>청와대</td>
+                        <td>Cheongwadae</td>
+                    </tr>
+                    <tr>
+                        <td>북창동 먹자골목</td>
+                        <td>Bukchang-dong food alley</td>
+                    </tr>
+                    <tr>
+                        <td>남대문시장</td>
+                        <td>Namdaemun Market</td>
+                    </tr>
+            </table> <a href="#" id="closeAreaList" class="btn">Close</a>
+            </div>
         </div>
     </form>
 
@@ -40,10 +499,6 @@
                 <td th:text="${areaName}"></td>
             </tr>
             <tr>
-                <th>Area Code</th>
-                <td th:text="${areaCode}"></td>
-            </tr>
-            <tr>
                 <th>Congestion Level</th>
                 <td th:text="${areaCongestLevel}"></td>
             </tr>
@@ -62,18 +517,48 @@
         </table>
 
         <h3>Forecast Data</h3>
-        <table>
-            <tr>
-                <th>Forecast Time</th>
-                <th>Forecast Congestion</th>
-            </tr>
-            <tr th:each="time, iterStat : ${forecastTimes}">
-                <td th:text="${time}"></td>
-                <td th:text="${forecastCongestions[iterStat.index]}"></td>
-            </tr>
-        </table>
-    </div>
-</div>
+        <canvas id="forecastChart"></canvas>
+        <script th:inline="javascript">
+            var forecastTimes = /*[[${forecastTimes}]]*/ [];
+            var forecastCongestions = /*[[${forecastCongestions}]]*/ [];
 
-</body>
-</html>
+            var forecastValues = forecastCongestions.map(function(congestion) {
+                switch (congestion) {
+                    case '여유':
+                        return '여유';
+                    case '보통':
+                        return '보통';
+                    case '약간 붐빔':
+                        return '약간 붐빔';
+                    case '붐빔':
+                        return '붐빔';
+                    default:
+                        return 0;
+                }
+            });
+
+            var ctx = document.getElementById('forecastChart').getContext('2d');
+            var forecastChart = new Chart(ctx, {
+                type: 'line',
+                data: {
+                    labels: forecastTimes,
+                    datasets: [{
+                        label: 'Forecast Congestion',
+                        data: forecastValues,
+                        backgroundColor: 'rgba(75, 192, 192, 0.2)',
+                        borderColor: 'rgba(75, 192, 192, 1)',
+                        borderWidth: 3
+                    }]
+                },
+                options: {
+                    scales: {
+                        y: {
+                            type: 'category',
+                            labels: ['붐빔', '약간 붐빔', '보통', '여유'],
+                        }
+                    }
+                }
+            });
+        </script>
+    </div>
+</div> <script> document.getElementById('showAreaList').addEventListener('click', function() { document.getElementById('areaListContainer').style.display = 'block'; }); document.getElementById('closeAreaList').addEventListener('click', function() { document.getElementById('areaListContainer').style.display = 'none'; }); </script> </body> </html>
