@@ -25,6 +25,20 @@ h1 {
     color: #333;
     font-size: 2.3em;
 }
+h2 {
+    text-align: relative;
+    margin-top: 50px;
+    margin-bottom: 30px;
+    color: #333;
+    font-size: 1.5em;
+}
+h3 {
+    text-align: relative;
+    margin-top: 50px;
+    margin-bottom: 20px;
+    color: #333;
+    font-size: 1.5em;
+}
 
 form {
     margin-bottom: 20px;
@@ -33,7 +47,7 @@ form {
 
 label {
     display: block;
-    margin-bottom: 10px;
+    margin-bottom: 20px;
     font-size: 1em;
 }
 
@@ -138,3 +152,6 @@ th {
     background-color: #f1f1f1;
 }
 
+.chart-space {
+    height: 75px; /* 원하는 공간의 높이 */
+}

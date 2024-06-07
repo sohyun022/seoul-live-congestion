@@ -82,7 +82,7 @@
 
     <!-- Result display -->
     <div th:if="${location}">
-        <h2>Result:</h2>
+        <h2>Result</h2>
         <table>
             <tr>
                 <th>Last Measurement Time</th>
@@ -112,6 +112,7 @@
 
         <h3>Forecast Data</h3>
         <canvas id="forecastChart"></canvas>
+        <div class="chart-space"></div>
         <script th:inline="javascript">
             var forecastTimes = /*[[${forecastTimes}]]*/ [];
             var forecastCongestions = /*[[${forecastCongestions}]]*/ [];
@@ -147,17 +148,27 @@
                 options: {
                     scales: {
                         y: {
-                            type: 'category',
-                            labels: ['붐빔', '약간 붐빔', '보통', '여유'],
-                        }
+                type: 'category',
+                labels: ['붐빔', '약간 붐빔', '보통', '여유'],
+                ticks: {
+                    font: {
+                        size: 13 // 원하는 글자 크기로 변경
+                    }
+                }
+            },
+            x: {
+                ticks: {
+                    font: {
+                        size: 13 // x축 레이블의 글자 크기도 변경
+                    }
+                }
+            }
                     }
                 }
             });
         </script>
     </div>
 </div>
-<script>document.getElementById('showAreaList').addEventListener('click', function() { document.getElementById('areaListContainer').style.display = 'block'; });
-document.getElementById('closeAreaList').addEventListener('click', function() { document.getElementById('areaListContainer').style.display = 'none'; });
-</script>
+
 </body>
 </html>
