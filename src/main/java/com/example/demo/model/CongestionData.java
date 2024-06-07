@@ -14,7 +14,10 @@ public class CongestionData {
     private List<String> forecastTimes;
     private List<String> forecastCongestions;
 
-    // getters and setters for all fields
+    private double latitude;
+    private double longitude;
+
+    // Getters and Setters for existing fields
 
     public String getPopulationTime() {
         return populationTime;
@@ -94,5 +97,23 @@ public class CongestionData {
 
     public void setForecastCongestions(List<String> forecastCongestions) {
         this.forecastCongestions = forecastCongestions;
+    }
+
+    // New getters and setters for latitude and longitude
+
+    public double getLatitude() {
+        return latitude;
+    }
+
+    public void setLatitude(double latitude) {
+        this.latitude = latitude;
+    }
+
+    public double getLongitude() {
+        return longitude;
+    }
+
+    public void setLongitude(double longitude) {
+        this.longitude = longitude;
     }
 }
