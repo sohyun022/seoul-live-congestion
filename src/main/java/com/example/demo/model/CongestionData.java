@@ -117,3 +117,4 @@ public class CongestionData {
         this.longitude = longitude;
     }
 }
+
