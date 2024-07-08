@@ -21,6 +21,7 @@ public class ApiController {
 
     @GetMapping("/Congestion")
     public String getCongestionForm(Model model) {
+        // 아무런 데이터를 추가하지 않고 단순히 폼 페이지 반환
         return "congestion";
     }
 
